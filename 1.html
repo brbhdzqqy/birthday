@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>给 67 的生日贺卡</title>
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:linear-gradient(165deg,#fff1f5 0%,#ffe9dc 52%,#ffeef4 100%);
+    font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#4a3a3a;
+    display:flex;justify-content:center;align-items:flex-start;
+    padding:26px 16px 46px;
+    overflow-x:hidden;
+  }
+
+  /* ---------- 背景飘落 ---------- */
+  #falling{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+  .fall{
+    position:absolute;top:-46px;line-height:1;
+    animation-name:fall;animation-timing-function:linear;animation-fill-mode:forwards;
+  }
+  @keyframes fall{
+    0%{transform:translateY(-46px) rotate(0deg);}
+    100%{transform:translateY(106vh) rotate(380deg);}
+  }
+
+  /* ---------- 卡片 ---------- */
+  .card{
+    position:relative;z-index:1;
+    width:100%;max-width:480px;
+    background:rgba(255,255,255,.93);
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:30px;
+    padding:30px 22px 26px;
+    text-align:center;
+    box-shadow:0 22px 54px rgba(255,120,150,.18),0 1px 0 #fff inset;
+    animation:pop .9s cubic-bezier(.2,.9,.3,1.3) both;
+  }
+  @keyframes pop{
+    from{opacity:0;transform:translateY(28px) scale(.96);}
+    to{opacity:1;transform:none;}
+  }
+
+  /* 角落草莓 */
+  .corner-straw{
+    position:absolute;width:24px;height:26px;
+    background:radial-gradient(circle at 35% 30%,#ff8a9b,#e5324f 75%);
+    border-radius:50% 50% 50% 50%/42% 42% 60% 60%;
+    box-shadow:0 4px 10px rgba(229,50,79,.3);
+  }
+  .corner-straw::before{
+    content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+    width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;
+    border-bottom:10px solid #4caf50;
+  }
+  .corner-straw::after{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 32% 46%,#fff 1.4px,transparent 1.5px),
+      radial-gradient(circle at 64% 40%,#fff 1.4px,transparent 1.5px),
+      radial-gradient(circle at 46% 70%,#fff 1.4px,transparent 1.5px),
+      radial-gradient(circle at 72% 66%,#fff 1.4px,transparent 1.5px);
+  }
+  .corner-straw.a{top:-12px;right:24px;transform:rotate(14deg);}
+  .corner-straw.b{bottom:-10px;left:22px;transform:rotate(-16deg) scale(.85);}
+
+  /* ---------- 轻松熊 ---------- */
+  .bear{
+    position:relative;width:120px;height:116px;
+    margin:26px auto 4px;
+  }
+  .bear span{position:absolute;}
+  .bear .hat{
+    left:50%;top:-2px;transform:translateX(-50%) rotate(-8deg);
+    width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;
+    border-bottom:26px solid #ff9f43;z-index:3;
+  }
+  .bear .ear{
+    width:36px;height:36px;top:20px;border-radius:50%;background:#c0925f;
+    box-shadow:inset -3px -3px 0 rgba(0,0,0,.05);
+  }
+  .bear .ear.l{left:2px;}
+  .bear .ear.r{right:2px;}
+  .bear .head{
+    left:8px;top:28px;width:104px;height:90px;border-radius:50%;
+    background:#c0925f;box-shadow:inset -6px -8px 0 rgba(0,0,0,.05);
+  }
+  .bear .eye{width:11px;height:11px;top:62px;border-radius:50%;background:#2e1f13;z-index:2;}
+  .bear .eye.l{left:34px;}
+  .bear .eye.r{right:34px;}
+  .bear .snout{
+    left:50%;transform:translateX(-50%);top:72px;
+    width:56px;height:40px;background:#fff4e3;border-radius:50%;z-index:2;
+  }
+  .bear .nose{
+    left:50%;transform:translateX(-50%);top:78px;
+    width:13px;height:10px;background:#3a2a1a;border-radius:50%;z-index:3;
+  }
+  .bear .mouth{
+    left:50%;transform:translateX(-50%);top:92px;
+    width:20px;height:9px;border-bottom:2.5px solid #3a2a1a;
+    border-radius:0 0 12px 12px;z-index:3;
+  }
+
+  /* ---------- 标题 ---------- */
+  h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:28px;letter-spacing:.5px;margin:6px 0 0;
+    background:linear-gradient(90deg,#ff5c8a,#ff9f43,#ff5c8a);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .name{
+    font-size:44px;font-weight:800;letter-spacing:3px;
+    color:#ff5c8a;margin:2px 0 8px;
+    text-shadow:0 5px 16px rgba(255,92,138,.25);
+  }
+  .sub{
+    font-size:14px;color:#9d7a84;line-height:1.8;
+    margin:0 0 4px;
+  }
+
+  /* ---------- 蛋糕 ---------- */
+  .cake-wrap{margin:8px auto 6px;}
+  .cake{
+    position:relative;width:190px;height:140px;margin:0 auto;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;
+  }
+  .cake .plate{
+    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:190px;height:16px;background:#f6cdd8;border-radius:50%;
+    box-shadow:0 6px 16px rgba(255,120,150,.2);
+  }
+  .cake .body{
+    position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+    width:142px;height:72px;border-radius:14px 14px 12px 12px;
+    background:linear-gradient(180deg,#ffb0c4,#ff7fa0);
+  }
+  .cake .cream{
+    position:absolute;bottom:76px;left:50%;transform:translateX(-50%);
+    width:150px;height:18px;border-radius:12px;background:#fff9f2;
+    box-shadow:0 2px 6px rgba(255,150,170,.18);
+  }
+  .cake-berry{
+    position:absolute;bottom:86px;width:18px;height:20px;z-index:3;
+    background:radial-gradient(circle at 35% 30%,#ff8a9b,#e5324f 75%);
+    border-radius:50% 50% 50% 50%/42% 42% 60% 60%;
+  }
+  .cake-berry.l{left:32px;}
+  .cake-berry.r{right:32px;}
+  .candle{
+    position:absolute;bottom:88px;left:50%;transform:translateX(-50%);
+    width:12px;height:36px;border-radius:4px;z-index:4;
+    background:repeating-linear-gradient(45deg,#fff 0 7px,#ff6b9a 7px 14px);
+  }
+  .flame{
+    position:absolute;left:50%;top:-18px;
+    width:14px;height:20px;
+    background:radial-gradient(circle at 50% 75%,#fff8b0,#ffb700 55%,#ff6a00 100%);
+    border-radius:50% 50% 50% 50%/65% 65% 35% 35%;
+    transform:translateX(-50%);
+    animation:flicker .3s infinite alternate;
+    transition:opacity .35s,transform .35s;
+  }
+  @keyframes flicker{
+    from{transform:translateX(-50%) scale(1) rotate(-3deg);}
+    to{transform:translateX(-50%) scale(1.1) rotate(3deg);}
+  }
+  .flame.out{opacity:0;transform:translateX(-50%) scale(.15);}
+  .hint{
+    font-size:12.5px;color:#b08b96;margin:2px 0 0;
+    transition:opacity .4s;
+  }
+
+  /* ---------- 信件 ---------- */
+  .letter{
+    position:relative;
+    margin:20px 0 4px;
+    padding:24px 20px 22px;
+    background:#fffdfa;
+    border:1px dashed #ffc6d6;
+    border-radius:18px;
+    text-align:left;
+    font-size:15.5px;
+    line-height:2.05;
+    color:#544646;
+    white-space:pre-wrap;
+  }
+  .letter::before{
+    content:"🍓";
+    position:absolute;top:-15px;left:16px;
+    font-size:22px;padding:0 8px;
+    background:#fffdfa;border-radius:50%;
+  }
+
+  /* ---------- 播放器 ---------- */
+  .player{margin:22px 0 4px;}
+  .wave{
+    display:flex;justify-content:center;align-items:flex-end;
+    gap:4px;height:20px;margin-bottom:12px;
+    opacity:0;transition:opacity .3s;
+  }
+  .wave.on{opacity:1;}
+  .wave i{
+    width:4px;height:6px;border-radius:2px;background:#ff8fab;
+    animation:bounce 1s infinite ease-in-out;
+  }
+  .wave i:nth-child(2){animation-delay:.1s;}
+  .wave i:nth-child(3){animation-delay:.2s;}
+  .wave i:nth-child(4){animation-delay:.3s;}
+  .wave i:nth-child(5){animation-delay:.4s;}
+  @keyframes bounce{
+    0%,100%{height:6px;}
+    50%{height:20px;}
+  }
+  #play{
+    display:inline-flex;align-items:center;gap:9px;
+    border:0;border-radius:999px;
+    padding:15px 28px;font-size:16.5px;font-weight:600;
+    color:#fff;cursor:pointer;
+    background:linear-gradient(135deg,#ff8fab,#ff5c8a);
+    box-shadow:0 10px 24px rgba(255,92,138,.32);
+    transition:transform .15s,box-shadow .2s;
+  }
+  #play:active{transform:scale(.97);}
+  #play.playing{
+    background:linear-gradient(135deg,#ff9f43,#ff7a45);
+    box-shadow:0 10px 24px rgba(255,140,70,.32);
+  }
+  .tip{font-size:12.5px;color:#a98c96;margin:12px 0 0;}
+
+  /* ---------- 署名 ---------- */
+  .sign{
+    text-align:right;margin-top:20px;
+    font-size:17px;font-weight:700;color:#a06b7a;
+    letter-spacing:1px;
+  }
+  .sign em{
+    font-style:normal;color:#ff5c8a;display:inline-block;
+    animation:beat 1.5s infinite;
+  }
+  @keyframes beat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.25);}
+  }
+</style>
+</head>
+<body>
+
+<div id="falling" aria-hidden="true"></div>
+
+<main class="card">
+
+  <div class="corner-straw a"></div>
+  <div class="corner-straw b"></div>
+
+  <!-- 轻松熊 -->
+  <div class="bear" aria-hidden="true">
+    <span class="ear l"></span>
+    <span class="ear r"></span>
+    <span class="head"></span>
+    <span class="hat"></span>
+    <span class="eye l"></span>
+    <span class="eye r"></span>
+    <span class="snout"></span>
+    <span class="nose"></span>
+    <span class="mouth"></span>
+  </div>
+
+  <h1>Happy Birthday</h1>
+  <div class="name">67</div>
+  <p class="sub">愿草莓的甜、轻松熊的软<br>还有今天所有的好事，都属于你 🍓</p>
+
+  <!-- 蛋糕 -->
+  <div class="cake-wrap">
+    <div class="cake" id="cake" title="点一下蜡烛">
+      <div class="plate"></div>
+      <div class="body"></div>
+      <div class="cream"></div>
+      <div class="cake-berry l"></div>
+      <div class="cake-berry r"></div>
+      <div class="candle"><div class="flame" id="flame"></div></div>
+    </div>
+    <p class="hint" id="hint">点一下蜡烛，许个愿 🕯️</p>
+  </div>
+
+  <!-- ============================================================
+       ↓↓↓ 把下面这段文字换成你自己写的信 ↓↓↓
+       注意：这段内容顶格写，不要在前面加空格，页面会原样保留换行。
+       ============================================================ -->
+  <div class="letter">67：
+
+生日快乐呀。
+
+今天想把所有甜甜的东西都给你——草莓味的蛋糕、软软的轻松熊，还有这封信和这段录音。
+
+有些话当面说不出口，就录下来了。你点下面那个按钮，慢慢听。
+
+新的一岁，愿你被偏爱、被照顾，做想做的事，见想见的人。
+如果哪天不开心了，记得还有我。
+
+—— 鸡毛</div>
+  <!-- ============================================================
+       ↑↑↑ 信的内容到此结束 ↑↑↑
+       ============================================================ -->
+
+  <!-- 播放器 -->
+  <div class="player" id="player">
+    <audio id="audio" src="./letter.mp3" preload="metadata"></audio>
+    <div class="wave" id="wave"><i></i><i></i><i></i><i></i><i></i></div>
+    <button id="play" type="button">
+      <span id="ic">▶</span><span id="tx">听我读给你听</span>
+    </button>
+    <p class="tip">戴上耳机慢慢听 🎧 如果没声音，再点一次按钮</p>
+  </div>
+
+  <div class="sign">—— 鸡毛 <em>♡</em></div>
+
+</main>
+
+<script>
+(function () {
+  /* ---------- 飘落特效 ---------- */
+  var wrap = document.getElementById('falling');
+  var pool = ['🍓','🍓','💗','✨','🍓','🎀','⭐','🍓'];
+  function spawn() {
+    var el = document.createElement('span');
+    el.className = 'fall';
+    el.textContent = pool[Math.floor(Math.random() * pool.length)];
+    el.style.left = (Math.random() * 100) + 'vw';
+    el.style.fontSize = (12 + Math.random() * 16) + 'px';
+    el.style.opacity = (0.45 + Math.random() * 0.5).toFixed(2);
+    var dur = 6 + Math.random() * 7;
+    el.style.animationDuration = dur + 's';
+    wrap.appendChild(el);
+    setTimeout(function () { el.remove(); }, dur * 1000 + 200);
+  }
+  for (var i = 0; i < 8; i++) setTimeout(spawn, i * 320);
+  setInterval(spawn, 480);
+
+  /* ---------- 吹蜡烛 ---------- */
+  var cake = document.getElementById('cake');
+  var flame = document.getElementById('flame');
+  var hint = document.getElementById('hint');
+  var blown = false;
+  cake.addEventListener('click', function () {
+    if (blown) return;
+    blown = true;
+    flame.classList.add('out');
+    hint.textContent = '愿望已经许好啦 ✨';
+    hint.style.color = '#ff5c8a';
+  });
+
+  /* ---------- 播放录音 ---------- */
+  var audio = document.getElementById('audio');
+  var btn = document.getElementById('play');
+  var ic = document.getElementById('ic');
+  var tx = document.getElementById('tx');
+  var wave = document.getElementById('wave');
+
+  function setIdle(text) {
+    ic.textContent = '▶';
+    tx.textContent = text;
+    btn.classList.remove('playing');
+    wave.classList.remove('on');
+  }
+
+  btn.addEventListener('click', function () {
+    if (audio.paused) {
+      var p = audio.play();
+      if (p && p.catch) {
+        p.catch(function () {
+          tx.textContent = '再点一次试试';
+        });
+      }
+    } else {
+      audio.pause();
+    }
+  });
+
+  audio.addEventListener('play', function () {
+    ic.textContent = '⏸';
+    tx.textContent = '正在播放…';
+    btn.classList.add('playing');
+    wave.classList.add('on');
+  });
+  audio.addEventListener('pause', function () {
+    setIdle('继续听');
+  });
+  audio.addEventListener('ended', function () {
+    setIdle('再听一遍');
+  });
+
+  /* 如果 letter.mp3 没放好，自动隐藏播放器，避免出现坏按钮 */
+  audio.addEventListener('error', function () {
+    document.getElementById('player').style.display = 'none';
+  });
+})();
+</script>
+</body>
+</html>
